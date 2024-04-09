@@ -11,7 +11,9 @@ X, y = bc.data, bc.target
 
 n_samples, n_features = X.shape
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=1234)
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=1234
+)
 
 # scale
 sc = StandardScaler()
@@ -26,6 +28,7 @@ y_test = torch.from_numpy(y_test.astype(np.float32))
 y_train = y_train.view(y_train.shape[0], 1)
 y_test = y_test.view(y_test.shape[0], 1)
 
+
 # 1) Model
 # Linear model f = wx + b , sigmoid at the end
 class Model(nn.Module):
@@ -36,6 +39,7 @@ class Model(nn.Module):
     def forward(self, x):
         y_pred = torch.sigmoid(self.linear(x))
         return y_pred
+
 
 model = Model(n_features)
 
@@ -58,12 +62,12 @@ for epoch in range(num_epochs):
     # zero grad before new step
     optimizer.zero_grad()
 
-    if (epoch+1) % 10 == 0:
-        print(f'epoch: {epoch+1}, loss = {loss.item():.4f}')
+    if (epoch + 1) % 10 == 0:
+        print(f"epoch: {epoch+1}, loss = {loss.item():.4f}")
 
 
 with torch.no_grad():
     y_predicted = model(X_test)
     y_predicted_cls = y_predicted.round()
     acc = y_predicted_cls.eq(y_test).sum() / float(y_test.shape[0])
-    print(f'accuracy: {acc.item():.4f}')
+    print(f"accuracy: {acc.item():.4f}")

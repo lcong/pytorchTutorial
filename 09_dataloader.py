@@ -3,6 +3,7 @@ import torchvision
 from torch.utils.data import Dataset, DataLoader
 import numpy as np
 import math
+import icecream as ic
 
 # gradient computation etc. not efficient for whole data set
 # -> divide dataset into small batches
