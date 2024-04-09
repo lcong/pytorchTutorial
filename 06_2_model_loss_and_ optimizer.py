@@ -9,7 +9,7 @@ import torch
 import torch.nn as nn
 
 # Linear regression
-# f = w * x 
+# f = w * x
 
 # here : f = 2 * x
 
@@ -18,7 +18,7 @@ X = torch.tensor([[1], [2], [3], [4]], dtype=torch.float32)
 Y = torch.tensor([[2], [4], [6], [8]], dtype=torch.float32)
 
 n_samples, n_features = X.shape
-print(f'#samples: {n_samples}, #features: {n_features}')
+print(f"#samples: {n_samples}, #features: {n_features}")
 # 0) create a test sample
 X_test = torch.tensor([5], dtype=torch.float32)
 
@@ -30,7 +30,7 @@ output_size = n_features
 # we can call this model with samples X
 model = nn.Linear(input_size, output_size)
 
-'''
+"""
 class LinearRegression(nn.Module):
     def __init__(self, input_dim, output_dim):
         super(LinearRegression, self).__init__()
@@ -41,9 +41,9 @@ class LinearRegression(nn.Module):
         return self.lin(x)
 
 model = LinearRegression(input_size, output_size)
-'''
+"""
 
-print(f'Prediction before training: f(5) = {model(X_test).item():.3f}')
+print(f"Prediction before training: f(5) = {model(X_test).item():.3f}")
 
 # 2) Define loss and optimizer
 learning_rate = 0.01
@@ -70,7 +70,8 @@ for epoch in range(n_iters):
     optimizer.zero_grad()
 
     if epoch % 10 == 0:
-        [w, b] = model.parameters() # unpack parameters
-        print('epoch ', epoch+1, ': w = ', w[0][0].item(), ' loss = ', l)
+        [w, b] = model.parameters()  # unpack parameters
+        print("epoch ", epoch + 1, ": w = ", w[0][0].item(), " loss = ", l)
+        print("epoch ", epoch + 1, ": b = ", b[0].item(), " loss = ", l)
 
-print(f'Prediction after training: f(5) = {model(X_test).item():.3f}')
+print(f"Prediction after training: f(5) = {model(X_test).item():.3f}")
