@@ -35,6 +35,7 @@ learning_rate = 0.01
 n_iters = 20
 
 for epoch in range(n_iters):
+
     # predict = forward pass
     y_pred = forward(X)
 

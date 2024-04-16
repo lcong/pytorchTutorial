@@ -1,13 +1,13 @@
 import torch
 import torch.nn as nn
 
-''' 3 DIFFERENT METHODS TO REMEMBER:
+""" 3 DIFFERENT METHODS TO REMEMBER:
  - torch.save(arg, PATH) # can be model, tensor, or dictionary
  - torch.load(PATH)
  - torch.load_state_dict(arg)
-'''
+"""
 
-''' 2 DIFFERENT WAYS OF SAVING
+""" 2 DIFFERENT WAYS OF SAVING
 # 1) lazy way: save whole model
 torch.save(model, PATH)
 
@@ -22,7 +22,7 @@ torch.save(model.state_dict(), PATH)
 model = Model(*args, **kwargs)
 model.load_state_dict(torch.load(PATH))
 model.eval()
-'''
+"""
 
 
 class Model(nn.Module):
@@ -33,6 +33,7 @@ class Model(nn.Module):
     def forward(self, x):
         y_pred = torch.sigmoid(self.linear(x))
         return y_pred
+
 
 model = Model(n_input_features=6)
 # train your model...
@@ -61,7 +62,9 @@ torch.save(model.state_dict(), FILE)
 
 print(model.state_dict())
 loaded_model = Model(n_input_features=6)
-loaded_model.load_state_dict(torch.load(FILE)) # it takes the loaded dictionary, not the path file itself
+loaded_model.load_state_dict(
+    torch.load(FILE)
+)  # it takes the loaded dictionary, not the path file itself
 loaded_model.eval()
 
 print(loaded_model.state_dict())
@@ -72,9 +75,9 @@ learning_rate = 0.01
 optimizer = torch.optim.SGD(model.parameters(), lr=learning_rate)
 
 checkpoint = {
-"epoch": 90,
-"model_state": model.state_dict(),
-"optim_state": optimizer.state_dict()
+    "epoch": 90,
+    "model_state": model.state_dict(),
+    "optim_state": optimizer.state_dict(),
 }
 print(optimizer.state_dict())
 FILE = "checkpoint.pth"
@@ -84,9 +87,9 @@ model = Model(n_input_features=6)
 optimizer = torch.optim.SGD(model.parameters(), lr=0)
 
 checkpoint = torch.load(FILE)
-model.load_state_dict(checkpoint['model_state'])
-optimizer.load_state_dict(checkpoint['optim_state'])
-epoch = checkpoint['epoch']
+model.load_state_dict(checkpoint["model_state"])
+optimizer.load_state_dict(checkpoint["optim_state"])
+epoch = checkpoint["epoch"]
 
 model.eval()
 # - or -
@@ -94,9 +97,9 @@ model.eval()
 
 print(optimizer.state_dict())
 
-# Remember that you must call model.eval() to set dropout and batch normalization layers 
-# to evaluation mode before running inference. Failing to do this will yield 
-# inconsistent inference results. If you wish to resuming training, 
+# Remember that you must call model.eval() to set dropout and batch normalization layers
+# to evaluation mode before running inference. Failing to do this will yield
+# inconsistent inference results. If you wish to resuming training,
 # call model.train() to ensure these layers are in training mode.
 
 """ SAVING ON GPU/CPU 
@@ -133,4 +136,3 @@ model.to(device)
 # This loads the model to a given GPU device. 
 # Next, be sure to call model.to(torch.device('cuda')) to convert the model’s parameter tensors to CUDA tensors
 """
-
